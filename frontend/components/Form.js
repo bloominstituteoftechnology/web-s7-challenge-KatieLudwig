@@ -48,30 +48,30 @@ useEffect(() => {
   userSchema.isValid(values).then(setFormSubmiting)
 }, [values])
 
-const onChange = evt => {
-  let { name, value, checked } = evt.target
-  value = name === 'checkbox' ? checked : value
-  setValues({ ...values, [name]: value })
-  yup.reach(userSchema, name).validate(value)
-  .then(() => setErrors({ ...errors, [name]: '' }))
-  .cathc((err) => setErrors({...errors, [name]: err.errors[0]}))
-}
+// const onChange = evt => {
+//   let { name, value, checked } = evt.target
+//   value = name === 'checkbox' ? checked : value
+//   setValues({ ...values, [name]: value })
+//   yup.reach(userSchema, name).validate(value)
+//   .then(() => setErrors({ ...errors, [name]: '' }))
+//   .cathc((err) => setErrors({...errors, [name]: err.errors[0]}))
+// }
 
-const onSubmit = evt => { 
-  evt.preventDefault()
-  axios.post('http://localhost:9009/api/order', values)
-    .then(res => {
-      setValues(getInitialValues())
-      setServerSuccess(res.data.message)
-      setServerFailure()
-    })
-    .catch(err => {
-      setServerFailure(err.response.data.message)
-      setServerSuccess()
-    })
-}
+// const onSubmit = evt => { 
+//   evt.preventDefault()
+//   axios.post('http://localhost:9009/api/order', values)
+//     .then(res => {
+//       setValues(getInitialValues())
+//       setServerSuccess(res.data.message)
+//       setServerFailure()
+//     })
+//     .catch(err => {
+//       setServerFailure(err.response.data.message)
+//       setServerSuccess()
+//     })
+// }
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       <h2>Order Your Pizza</h2>
       {serverSuccess && <div className='success'>{serverSuccess}</div>}
       {serverFailure && <div className='failure'>{serverFailure}</div>}
@@ -79,7 +79,7 @@ const onSubmit = evt => {
       <div className="input-group">
         <div>
           <label htmlFor="fullName">Full Name</label><br />
-          <input value={values.fullName} onChange={onChange} placeholder="Type full name" id="fullName" type="text" />
+          <input placeholder="Type full name" id="fullName" type="text" />
         </div>
         {errors.fullName && <div className='error'>{errors.fullName} </div>}
       </div>
@@ -87,7 +87,7 @@ const onSubmit = evt => {
       <div className="input-group">
         <div>
           <label htmlFor="size">Size</label><br />
-          <select id="size" value={values.size} onChange={onChange}>
+          <select id="size">
             <option value="">----Choose Size----</option>
             {/* Fill out the missing options */}
             <option value='S'>Small</option>
@@ -103,7 +103,7 @@ const onSubmit = evt => {
         {toppings.map(({ topping_id, text }) => (
           <div key={topping_id}>
             <label>
-              <input checked={values.toppings} name={`topping-${topping_id}`} type="checkbox" />{text}
+              <input name={`topping-${topping_id}`} type="checkbox" />{text}
             </label>
           </div>
         ))}
