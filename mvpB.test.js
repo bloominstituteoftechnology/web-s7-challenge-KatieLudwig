@@ -3,6 +3,14 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 describe('Sprint 7 Challenge Learner Tests', () => {
+  test('sum( throws an error "pass valid numbers"', () => {
+    expect(() => sum()).toThrowError('pass valid numbers')
+  })
+
+  test('sum(2, "seven") throws an error "pass valid numbers"', () => {
+    expect(() => sum(2, 'seven')).toThrowError('pass valid numbers');
+  })
+
   /*
   👉 TASK 1 - Unit Testing of sum function at the bottom of this module
 
@@ -29,9 +37,9 @@ describe('Sprint 7 Challenge Learner Tests', () => {
     [5] renders a text that reads "JavaScript is pretty awesome"
     [6] renders a text that includes "javaScript is pretty" (use exact = false)
   */
-  test('you can comment out this test', () => {
-    expect(true).toBe(false)
-  })
+  // test('you can comment out this test', () => {
+  //   expect(true).toBe(false)
+  // })
 })
 
 function sum(a, b) {
